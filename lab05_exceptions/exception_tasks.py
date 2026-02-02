@@ -2,7 +2,7 @@ import os
 
 def task1(num1, num2):
     try: return num1/num2
-    except:
+    except ZeroDivisionError:
         return "error: division by zero"
 
 def task2(filename):
@@ -11,12 +11,12 @@ def task2(filename):
         input_file_path = os.path.join(script_dir, filename)
         with open(input_file_path, newline='') as openedfile:
             return "file has been opened"
-    except:
+    except FileNotFoundError:
         return "error: no such file in derictory"
 
 def task3(l):
     try: return l[0]
-    except:
+    except IndexError:
         return "error: empty list"
 
 def main():
