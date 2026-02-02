@@ -21,16 +21,14 @@ def task3(l):
 
 def main():
     print("-----TASK 1-----")
-    print(task1(1, 2))
-    print(task1(1, 0))
+    num1, num2 = map(int, input("Enter two numbers: ").split())
+    print(task1(num1, num2))
 
     print("-----TASK 2-----")
-    print(task2("test.txt"))
-    print(task2("sdfsdf.txt"))
+    print(task2(str(input("Enter file name: "))))
 
     print("-----TASK 3-----")
-    print(task3([1,2,3]))
-    print(task3([]))
-
+    print(task3(str(input('Enter list: ')).split()))
+    
 if __name__ == "__main__":
     main()
