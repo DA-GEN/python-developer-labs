@@ -1,6 +1,10 @@
 import random
 
+
+
 def generate_random_list(size: int = 1000) -> list[int]:
+    """Generates a list of random integers of the specified size."""
+
     array = []
 
     for i in range(size):
