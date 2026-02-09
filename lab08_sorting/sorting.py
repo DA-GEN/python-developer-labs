@@ -3,75 +3,67 @@ import random
 
 
 def generate_random_list(size: int = 1000) -> list[int]:
-    """Generates a list of random integers of the specified size."""
-
-    array = []
-
-    for i in range(size):
-        array.append(random.randint(1, 10000))
-    
-    return array
+    """Generates a list of random integers."""
+    return [random.randint(1, 10000) for _ in range(size)]
 
 
-def bubbleSort(array: list[int], reverse:bool = False) -> list[int]:
-    """Sorts a list using the bubble sort method with direction support."""
+def bubble_sort(array: list[int], reverse: bool = False) -> list[int]:
+    """Bubble sort."""
+    n = len(array)
 
-    arrayLen = len(array)
-    
-    for i in range(arrayLen):
+    for i in range(n):
         swapped = False
-        
-        for j in range(0, arrayLen - i - 1):
-            should_swap = array[j] < array[j+1] if reverse else array[j] > array[j+1]
-            
-            if should_swap:
+
+        for j in range(0, n - i - 1):
+            if (array[j] < array[j+1]) if reverse else (array[j] > array[j+1]):
                 array[j], array[j+1] = array[j+1], array[j]
                 swapped = True
-        
+
         if not swapped:
             break
-    
-    return array
 
-def selectionSort(array: list[int], reverse:bool = False) -> list[int]:
-    """Sorts a list using the selection sort method with direction support."""
-
-    arrayLen = len(array)
-    
-    for i in range(arrayLen):
-        selected_index = i
-        
-        for j in range(i+1, arrayLen):
-            should_select = array[j] < array[selected_index] if reverse else array[j] > array[selected_index]
-            
-            if should_select:
-                selected_index = j
-        
-        if selected_index != i:
-            array[i], array[selected_index] = array[selected_index], array[i]
-    
     return array
 
 
-def quickSort(array: list[int], reverse:bool = False) -> list[int]:
-    """Sorts a list using the quick sort method with direction support."""
+def selection_sort(array: list[int], reverse: bool = False) -> list[int]:
+    """Selection sort."""
+    n = len(array)
 
+    for i in range(n):
+        idx = i
+
+        for j in range(i + 1, n):
+            condition = array[j] > array[idx] if reverse else array[j] < array[idx]
+            if condition:
+                idx = j
+
+        array[i], array[idx] = array[idx], array[i]
+
+    return array
+
+
+def quick_sort(array: list[int], reverse: bool = False) -> list[int]:
+    """Quick sort."""
     if len(array) <= 1:
         return array
     
     pivot = array[len(array) // 2]
     
-    left = [x for x in array if x < pivot] if not reverse else [x for x in array if x > pivot]
-    middle = [x for x in array if x == pivot]
-    right = [x for x in array if x > pivot] if not reverse else [x for x in array if x < pivot]
+    low = [x for x in array if x < pivot]
+    mid = [x for x in array if x == pivot]
+    high = [x for x in array if x > pivot]
     
-    return quickSort(left, reverse) + middle + quickSort(right, reverse)
+    if reverse:
+        return quick_sort(high, True) + mid + quick_sort(low, True)
+    
+    return quick_sort(low, False) + mid + quick_sort(high, False)
 
 if __name__ == "__main__":
-    data = generate_random_list(1000)
+    number_of_elements = 1000
+    base_data = generate_random_list(number_of_elements)
     
-    print(f'\nBubble sort: \n{bubbleSort(data)}')
-    
-    print(f'\nSelection sort: \n{selectionSort(data)}')
-    
-    print(f'\nQuick sort: \n{quickSort(data)}')
+    print(f"\nOriginal: {base_data}")
+
+    print(f"\nBubble:   {bubble_sort(base_data.copy())}")
+    print(f"\nSelection:{selection_sort(base_data.copy(), reverse=False)}")
+    print(f"\nQuick:    {quick_sort(base_data.copy(), reverse=True)}")
