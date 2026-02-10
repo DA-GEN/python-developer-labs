@@ -8,7 +8,13 @@ def generate_random_list(size: int = 1000) -> list[int]:
 
 
 def bubble_sort(array: list[int], reverse: bool = False) -> list[int]:
-    """Bubble sort."""
+    """
+    Sorts a list using Bubble Sort algorithm.
+    Time Complexity: O(N^2)
+    """
+
+    array = array.copy()  # To avoid modifying the original list
+
     n = len(array)
 
     for i in range(n):
@@ -26,7 +32,13 @@ def bubble_sort(array: list[int], reverse: bool = False) -> list[int]:
 
 
 def selection_sort(array: list[int], reverse: bool = False) -> list[int]:
-    """Selection sort."""
+    """
+    Sorts a list using Selection Sort algorithm.
+    Time Complexity: O(N^2)
+    """
+
+    array = array.copy()  # To avoid modifying the original list
+
     n = len(array)
 
     for i in range(n):
@@ -43,7 +55,13 @@ def selection_sort(array: list[int], reverse: bool = False) -> list[int]:
 
 
 def quick_sort(array: list[int], reverse: bool = False) -> list[int]:
-    """Quick sort."""
+    """
+    Sorts a list using Quick Sort algorithm.
+    Time Complexity: O(N log N) on average, O(N^2) in the worst case.
+    """
+
+    array = array.copy()  # To avoid modifying the original list
+    
     if len(array) <= 1:
         return array
     
@@ -64,6 +82,6 @@ if __name__ == "__main__":
     
     print(f"\nOriginal: {base_data}")
 
-    print(f"\nBubble:   {bubble_sort(base_data.copy())}")
-    print(f"\nSelection:{selection_sort(base_data.copy(), reverse=False)}")
-    print(f"\nQuick:    {quick_sort(base_data.copy(), reverse=True)}")
+    print(f"\nBubble:   {bubble_sort(base_data)}")
+    print(f"\nSelection:{selection_sort(base_data, reverse=False)}")
+    print(f"\nQuick:    {quick_sort(base_data, reverse=True)}")
