@@ -5,8 +5,7 @@ class Student:
     def __init__(self, name: str, age: int, grades: dict[str, int]):
         self.name = name
         self.age = age
-        self.grades = grades
-
+        self.grades = grades if grades is not None else {}
 
     def add_grade(self, subject: str, grade: int):
         self.grades[subject] = grade
@@ -18,6 +17,11 @@ class Student:
 
         total = sum(self.grades.values())
         return total / len(self.grades)
+    
+        
+    def __repr__(self) -> str:
+        """Позволяет красиво печатать объект Student."""
+        return f"Student(name='{self.name}', avg={self.average_grade():.2f})"
 
 
 class StudentGroup:
@@ -37,12 +41,13 @@ class StudentGroup:
         if not self.students:
             return None
         
-        best_student = self.students[0]
-        for student in self.students[1:]:
-            if student.average_grade() > best_student.average_grade():
-                best_student = student
-        
-        return best_student
+        return max(self.students, key=lambda s: s.average_grade())
 
+
+    def __iter__(self):
+        """
+        Makes the group iterable: can be used in a loop for students in the group.
+        """
+        return iter(self.students)
 
 
