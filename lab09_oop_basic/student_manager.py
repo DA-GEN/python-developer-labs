@@ -1,3 +1,6 @@
+from typing import Optional
+
+
 class Student:
     """
     A class to represent a student with their name, age, and grades."""
@@ -37,7 +40,7 @@ class StudentGroup:
         self.students.append(student)
 
 
-    def get_best_student(self) -> Student:
+    def get_best_student(self) -> Optional[Student]:
         if not self.students:
             return None
         
