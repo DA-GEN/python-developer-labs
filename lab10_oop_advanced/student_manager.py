@@ -33,7 +33,11 @@ class Student(Person):
         total = sum(self.grades.values())
         return total / len(self.grades)
     
-        
+
+    def get_grades(self) -> list[int]:
+        return list(self.grades.values())
+
+
     def __repr__(self) -> str:
         """
         Allows you to print the Student object beautifully.
@@ -46,9 +50,9 @@ class Teacher(Person):
     A class to represent a teacher with their name, age, and subject they teach.
     """
 
-    def __init__(self, name: str, age: int, subject: str):
+    def __init__(self, name: str, age: int, subject: Optional[str]):
         super().__init__(name, age)
-        self.subject = subject if subject is not None else{}
+        self.subject = subject if subject is not None else None
 
 
 class StudentGroup:
@@ -76,8 +80,9 @@ class StudentGroup:
         if not self.students:
             return None
         
-        total_avg = sum(s.average_grade() for s in self.students)
-        return total_avg / len(self.students)
+        total_sum = sum(sum(s.get_grades()) for s in self.students)
+        total_len = sum(len(s.get_grades()) for s in self.students)
+        return total_sum / total_len if total_len > 0 else None
     
 
     def describe_group(self) -> str:
